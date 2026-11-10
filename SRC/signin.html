@@ -1,23 +1,112 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In - Combox</title>
+
+    <style>
+        body {
+            background-color: #8FE1FF;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .contenedor {
+            background-color: white;
+            width: 350px;
+            margin: 100px auto;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        h2 {
+            color: #168FC2;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #8FE1FF;
+            border-radius: 8px;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #168FC2;
+        }
+
+        button {
+            background-color: #168FC2;
+            color: white;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #08658F;
+        }
+
+        a {
+            display: block;
+            color: #168FC2;
+            text-decoration: none;
+            margin-top: 18px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .separador {
+            border-top: 1px solid #ddd;
+            margin-top: 25px;
+            padding-top: 10px;
+        }
+    </style>
 </head>
-<body bgcolor="#8FE1FF">
-    <center>
+
+<body>
+
+    <div class="contenedor">
+
         <h2>Iniciar Sesión</h2>
+
         <form>
-            <label>Correo: </label><input type="email" name="email"><br><br>
-            <label>Contraseña: </label><input type="password" name="password"><br><br>
+            <label>Correo:</label>
+            <input type="email" name="email" placeholder="Ingresa tu correo" required>
+
+            <label>Contraseña:</label>
+            <input type="password" name="password" placeholder="Ingresa tu contraseña" required>
+
             <button type="submit">Entrar</button>
         </form>
-        <br>
-        <a href="../index.html">Volver al inicio</a>
-    </center>
+
+        <div class="separador">
+            <a href="forgot.html">¿Olvidaste tu contraseña?</a>
+            <a href="../index.html">Volver al inicio</a>
+        </div>
+
+    </div>
+
 </body>
 </html>
-<!-- Dentro de tu form o debajo de él en signin.html -->
-<br>
-<a href="forgot.html">¿Olvidaste tu contraseña?</a>

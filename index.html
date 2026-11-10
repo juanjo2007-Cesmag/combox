@@ -1,15 +1,110 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Combox - home</title>
-    <link rel="icon" type = "image/png" href="SRC/icons/ganancia-financiera.png"
+    <title>Combox - Home</title>
+
+    <link rel="icon" type="image/png" href="SRC/icons/ganancia-financiera.png">
+
+    <style>
+        body {
+            background-color: #8FE1FF;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .contenedor {
+            background-color: white;
+            width: 80%;
+            max-width: 600px;
+            margin: 100px auto;
+            padding: 40px;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        h1 {
+            color: #168FC2;
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            color: #08658F;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #555;
+            font-size: 17px;
+            margin-bottom: 30px;
+        }
+
+        .recuadro {
+            background-color: #E8F8FF;
+            border: 2px solid #55BDE5;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .boton {
+            display: inline-block;
+            background-color: #168FC2;
+            color: white;
+            padding: 13px 25px;
+            margin: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .boton:hover {
+            background-color: #08658F;
+            transform: scale(1.05);
+        }
+
+        footer {
+            margin-top: 30px;
+            color: #777;
+            font-size: 13px;
+        }
+    </style>
 </head>
-<body bgcolor="#BFFFEE">
-    <center>PAGINA ONLINE JUANJO OBANDO</center>
-</body bgcolor="8FE1FF">
-     <a href="SRC/signup.html" target="_blank">Sign up</a> |
-<a href="SRC/signin.html">Sign in</a>
+
+<body>
+
+    <div class="contenedor">
+
+        <h1>¡Bienvenido a Combox!</h1>
+
+        <div class="recuadro">
+
+            <h2>¡HOLA! SOY JUANJO OBANDO</h2>
+
+            <p>BIENVENIDO A MI PAGINA, QUE TENGAS BUEN VIAJE!</p>
+
+        </div>
+
+        <a href="SRC/signup.html" class="boton" target="_blank">
+            Sign Up
+        </a>
+
+        <a href="SRC/signin.html" class="boton">
+            Sign In
+        </a>
+
+        <footer>
+            © 2026 Combox - Todos los derechos reservados
+        </footer>
+
+    </div>
+
 </body>
 </html>

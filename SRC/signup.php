@@ -19,14 +19,7 @@
         )
     ";
 
-    $local_res = pg_query($local_conn, $sql);
     $supa_res = pg_query($supa_conn, $sql);
-
-    if($local_res){
-        echo "User has been created successfully into local database !!!<br>";
-    } else{
-        echo "User hasn't been created into local database !!! <br>";
-    }
 
     if($supa_res){
         echo "User has been created successfully into supabase database !!!<br>";
