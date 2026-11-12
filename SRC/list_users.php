@@ -1,92 +1,67 @@
 <?php
-// Silenciar cualquier echo generado por database.php
-ob_start();
-require('../config/database.php');
-ob_end_clean();
-
-// Consulta SQL (incluyendo el id para las futuras acciones de ver, editar y borrar)
-$sql = "
-    SELECT
-        u.id,
-        u.firstname,
-        u.lastname,
-        u.mobile_phone,
-        u.email,
-        CASE
-            WHEN u.status = true THEN 'Active'
-            ELSE 'Inactive'
-        END AS user_status,
-        u.photo_url
-    FROM users u
-    ORDER BY u.lastname ASC
-";
-
-// Ejecutar consulta
-$res = pg_query($supa_conn, $sql);
-
-// Verificar consulta
-if (!$res) {
-    die("Error en la consulta: " . pg_last_error($supa_conn));
-}
+    require('../config/database.php');
+    $sql = "SELECT 
+                id,
+                firstname, 
+                lastname, 
+                mobile_phone, 
+                email, 
+                photo_url, 
+                case
+                    when u.status = true then 'Active' else 'Inactive'
+                end as status
+            FROM users u
+            ORDER BY firstname ASC";
+    $res = pg_query($supa_conn, $sql);
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List Users - Combox</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Combox - List users</title>
+        <link rel="icon" type="image/png" href="icons/icono.png">
+    </head>
+    <body>
+        <center><h3>List all users</h3></center>
+        <table border="1" align="center" width="80%" cellpadding="6">
+            <tr>
+                <th>Photo</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Mobile Phone</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>...</th>
+            </tr>
+            <?php
+                while($row = pg_fetch_assoc($res)){
+                    echo "<tr>";
+                    
+                    // Mostrar foto o texto "Sin foto"
+                    echo "<td align='center'>";
+                    if (!empty($row['photo_url'])) {
+                        echo "<img src='" . htmlspecialchars($row['photo_url']) . "?v=" . time() . "' width='50' height='50' style='object-fit: cover; border-radius: 50%;'>";
+                    } else {
+                        echo "Sin foto";
+                    }
+                    echo "</td>";
 
-<body>
-
-<center>
-    <h3>List All Users</h3>
-
-    <table border="1" align="center" cellpadding="8" cellspacing="0">
-        <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Mobile_phone</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Photo</th>
-            <th>Actions</th>
-        </tr>
-
-        <?php
-        $default_img = "photos_users/user_default.png";
-
-        while ($row = pg_fetch_assoc($res)) {
-            echo "<tr>";
-
-            echo "<td>" . htmlspecialchars($row['firstname'] ?? '') . "</td>";
-            echo "<td>" . htmlspecialchars($row['lastname'] ?? '') . "</td>";
-            echo "<td>" . htmlspecialchars($row['mobile_phone'] ?? '') . "</td>";
-            echo "<td>" . htmlspecialchars($row['email'] ?? '') . "</td>";
-            echo "<td>" . htmlspecialchars($row['user_status']) . "</td>";
-
-            // Columna de Foto
-            echo "<td align='center'>";
-            if (!empty($row['photo_url'])) {
-                echo "<img src='" . htmlspecialchars($row['photo_url']) . "' width='40' height='40' style='object-fit: cover; border-radius: 4px;' onerror=\"this.onerror=null; this.src='$default_img';\">";
-            } else {
-                echo "<img src='" . $default_img . "' width='40' height='40' style='object-fit: cover; border-radius: 4px;'>";
-            }
-            echo "</td>";
-
-            // Columna de Acciones (Search, Edit, Trash)
-            echo "<td align='center'>";
-            echo "<a href='#' title='Search / View' style='margin-right: 8px;'><img src='icons/search.png' width='20' height='20' alt='Search' style='vertical-align: middle; cursor: pointer;'></a>";
-            echo "<a href='#' title='Edit' style='margin-right: 8px;'><img src='icons/edit.png' width='20' height='20' alt='Edit' style='vertical-align: middle; cursor: pointer;'></a>";
-            echo "<a href='#' title='Delete' onclick=\"return confirm('¿Desea eliminar este usuario?');\"><img src='icons/trash.png' width='20' height='20' alt='Delete' style='vertical-align: middle; cursor: pointer;'></a>";
-            echo "</td>";
-
-            echo "</tr>";
-        }
-        ?>
-    </table>
-</center>
-
-</body>
+                    echo "<td>" . htmlspecialchars($row['firstname']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['lastname']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['mobile_phone']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['email']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['status']) . "</td>";
+                    echo "<td align='center'>
+                            <img src='photos/search.png' width='15'>&nbsp;&nbsp;
+                            <a href='edit_user.php?id=" . $row['id'] . "' title='Editar usuario'>
+                                <img src='photos/edit.png' width='15'>
+                            </a>&nbsp;&nbsp;
+                            <img src='photos/delete.png' width='15'>
+                        </td>";
+                    echo "</tr>";
+                }
+            ?>
+        </table>
+    </body>
 </html>
