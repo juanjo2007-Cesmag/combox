@@ -1,15 +1,14 @@
 <?php
-    //Get data base connection
-    require('../config/database.php');
+    // Conexión a la base de datos
+    require('../CONFIG/database.php');
 
-    //Get data from html form (client) 
-    $f_name=$_POST['fname'];
-    $l_name=$_POST['lname'];
-    $m_phone=$_POST['mphone'];
-    $e_mail=$_POST['email'];
-    $p_assword=$_POST['psw'];
+    // Recibir y limpiar datos del formulario (client)
+    $f_name  = pg_escape_string($supa_conn, $_POST['fname']);
+    $l_name  = pg_escape_string($supa_conn, $_POST['lname']);
+    $m_phone = pg_escape_string($supa_conn, $_POST['mphone']);
+    $e_mail  = pg_escape_string($supa_conn, $_POST['email']);
+    $p_assword = pg_escape_string($supa_conn, $_POST['psw']);
 
-    // AGREGADO: Incluimos creaded_at y updated_at con NOW() para evitar bloqueos de campos obligatorios
     $sql = "
         INSERT INTO users (
             firstname, lastname, mobile_phone, email, password
@@ -22,16 +21,16 @@
     $supa_res = pg_query($supa_conn, $sql);
 
     if($supa_res){
-        echo "User has been created successfully into supabase database !!!<br>";
-    } else{
-        echo "User hasn't been created into supabase database !!!<br>";
+        echo "<script>
+                alert('Usuario creado exitosamente en Supabase');
+                window.location.href = 'signin.html';
+              </script>";
+        exit();
+    } else {
+        echo "<script>
+                alert('Error al crear el usuario en Supabase');
+                window.location.href = 'signup.html';
+              </script>";
+        exit();
     }
-
-    /*
-    echo "Firstname is: ". $f_name;
-    echo "<br>Lastname is: ". $l_name;
-    echo "<br>Mobile Phone is: ". $m_phone;
-    echo "<br>E-mail is: ". $e_mail;
-    echo "<br>Password is: ". $p_assword;
-    */
 ?>
